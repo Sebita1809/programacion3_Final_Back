@@ -45,7 +45,7 @@ public class UsuarioController {
         }
 
         UsuarioDTO user = usuarioService.save(userC);
-        return ResponseEntity.status(201).body(user);
+        return ResponseEntity.status(201).body("Usuario registrado correctamente");
 
     }
 
