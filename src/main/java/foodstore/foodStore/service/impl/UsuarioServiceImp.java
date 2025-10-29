@@ -1,10 +1,11 @@
-package foodstore.foodStore.service;
+package foodstore.foodStore.service.impl;
 
 import foodstore.foodStore.entity.Usuario;
 import foodstore.foodStore.entity.dto.Usuario.UsuarioCreate;
 import foodstore.foodStore.entity.dto.Usuario.UsuarioDTO;
 import foodstore.foodStore.mapper.UsuarioMapper;
 import foodstore.foodStore.repository.UsuarioRepository;
+import foodstore.foodStore.service.UsuarioService;
 import foodstore.foodStore.utils.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UsuarioServiceImp implements UsuarioService{
+public class UsuarioServiceImp implements UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;

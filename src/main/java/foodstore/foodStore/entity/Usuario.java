@@ -22,6 +22,7 @@ public class Usuario {
     private String email;
     private int celular;
     private String contrasena;
+
     private Rol rol;
 
 
