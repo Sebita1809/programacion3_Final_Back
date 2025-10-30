@@ -1,5 +1,7 @@
 package foodstore.foodStore.entity.dto.Producto;
 
+import foodstore.foodStore.entity.Categoria;
+import foodstore.foodStore.entity.dto.Categoria.CategoriaView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,4 +20,6 @@ public class ProductoDTO {
     private Long id;
     private String nombre;
     private double precio;
+    private int stock;
+    private CategoriaView categoria;
 }

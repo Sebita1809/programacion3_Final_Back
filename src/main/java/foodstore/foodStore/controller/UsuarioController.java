@@ -20,11 +20,14 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    @Autowired
-    UsuarioMapper usuarioMapper;
-
-    @Autowired
-    UsuarioRepository usuarioRepository;
+    @GetMapping("/")
+    public ResponseEntity<?> findAll(){
+        try{
+            return ResponseEntity.ok(usuarioService.findAll());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioLogin userL){
@@ -37,7 +40,7 @@ public class UsuarioController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UsuarioCreate userC){
 
-        if (usuarioRepository.existsByEmail(userC.email())){
+        if (usuarioService.usuarioExists(userC.email())){
             return ResponseEntity.badRequest().body("Este correo ya se encuentra registrado");
         }
 

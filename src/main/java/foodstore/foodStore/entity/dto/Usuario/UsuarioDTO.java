@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,8 +15,6 @@ import lombok.*;
 @Builder
 public class UsuarioDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;

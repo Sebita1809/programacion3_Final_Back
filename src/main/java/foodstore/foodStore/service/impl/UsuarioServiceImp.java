@@ -10,6 +10,8 @@ import foodstore.foodStore.utils.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,4 +45,22 @@ public class UsuarioServiceImp implements UsuarioService {
                 .map(usuarioMapper::toDto);
     }
 
+    @Override
+    public boolean usuarioExists(String email){
+
+        if (usuarioRepository.existsByEmail(email)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<UsuarioDTO> findAll(){
+        List<UsuarioDTO> usuarios = usuarioRepository.findAll()
+                .stream()
+                .map(usuarioMapper::toDto)
+                .toList();
+
+        return usuarios;
+    }
 }

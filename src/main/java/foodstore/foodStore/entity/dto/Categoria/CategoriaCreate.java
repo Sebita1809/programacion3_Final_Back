@@ -1,6 +1,6 @@
 package foodstore.foodStore.entity.dto.Categoria;
 
-public record CategoriaEditDTO(
+public record CategoriaCreate(
         String nombre,
         String descripcion,
         String url

@@ -1,5 +1,6 @@
 package foodstore.foodStore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,6 @@ public class Categoria {
     private String descripcion;
     private String Url;
 
-    @OneToMany
+    @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
 }

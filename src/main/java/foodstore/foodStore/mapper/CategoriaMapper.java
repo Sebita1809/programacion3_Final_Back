@@ -2,6 +2,7 @@ package foodstore.foodStore.mapper;
 
 import foodstore.foodStore.entity.Categoria;
 import foodstore.foodStore.entity.Producto;
+import foodstore.foodStore.entity.dto.Categoria.CategoriaCreate;
 import foodstore.foodStore.entity.dto.Categoria.CategoriaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,18 +17,11 @@ public class CategoriaMapper {
     @Autowired
     ProductoMapper productoMapper;
 
-    public Categoria toEntity(CategoriaDTO c){
+    public Categoria toEntity(CategoriaCreate c){
         Categoria categoria = new Categoria();
-        categoria.setId(c.getId());
-        categoria.setNombre(c.getNombre());
-        categoria.setDescripcion(c.getDescripcion());
-        categoria.setUrl(c.getUrl());
-        List<Producto> productos = c.getProductos() == null ?
-                Collections.emptyList() :
-                c.getProductos()
-                .stream()
-                .map(productoMapper::toEntity).collect(Collectors.toList());
-        categoria.setProductos(productos);
+        categoria.setNombre(c.nombre());
+        categoria.setDescripcion(c.descripcion());
+        categoria.setUrl(c.url());
 
         return categoria;
     }
