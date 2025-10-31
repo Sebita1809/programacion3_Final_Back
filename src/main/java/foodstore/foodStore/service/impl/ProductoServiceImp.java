@@ -73,6 +73,8 @@ public class ProductoServiceImp implements ProductoService {
         producto.setNombre(p.nombre());
         producto.setPrecio(p.precio());
         producto.setStock(p.stock());
+        producto.setUrl(p.url());
+        producto.setDescripcion(p.descripcion());
         Categoria categoriaNueva = categoriaRepository.findByNombre(p.categoria());
         Categoria categoriaVieja = producto.getCategoria();
         if (categoriaVieja != null && !categoriaVieja.getId().equals(categoriaNueva.getId())){
