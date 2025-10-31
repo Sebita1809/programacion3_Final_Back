@@ -20,6 +20,7 @@ public class ProductoMapper {
         producto.setPrecio(p.precio());
         producto.setStock(p.stock());
         producto.setUrl(p.url());
+        producto.setDescripcion(p.descripcion());
 
         return producto;
     }
@@ -38,6 +39,7 @@ public class ProductoMapper {
                 p.getPrecio(),
                 p.getStock(),
                 p.getUrl(),
+                p.getDescripcion(),
                 categoriaView
         );
     }

@@ -22,5 +22,6 @@ public class ProductoDTO {
     private double precio;
     private int stock;
     private String url;
+    private String descripcion;
     private CategoriaView categoria;
 }

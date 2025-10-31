@@ -5,5 +5,6 @@ public record ProductoCreateDTO(
         double precio,
         int stock,
         String url,
+        String descripcion,
         String categoria
 ) {}
