@@ -21,6 +21,7 @@ public class Producto {
     private String nombre;
     private double precio;
     private int stock;
+    private String url;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = true)

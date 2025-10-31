@@ -41,6 +41,7 @@ public class ProductoServiceImp implements ProductoService {
         Producto producto = productoMapper.toEntity(p);
 
         producto.setCategoria(categoria);
+        categoria.getProductos().add(producto);
         productoRepository.save(producto);
 
         return productoMapper.toDto(producto);

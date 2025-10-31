@@ -6,6 +6,7 @@ public record ProductoEdit(
         String nombre,
         double precio,
         int stock,
+        String url,
         String categoria
 ) {
 }

@@ -35,7 +35,7 @@ public class CategoriaServiceImp implements CategoriaService {
 
         Categoria categoria = categoriaMapper.toEntity(c);
 
-        categoria = categoriaRespository.save(categoria);
+        categoriaRespository.save(categoria);
 
         return categoriaMapper.toDto(categoria);
     }

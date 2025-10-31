@@ -1,6 +1,6 @@
 package foodstore.foodStore.entity.dto.Categoria;
 
-import foodstore.foodStore.entity.dto.Producto.ProductoDTO;
+import foodstore.foodStore.entity.dto.Producto.ProductoView;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,5 +19,5 @@ public class CategoriaDTO {
     private String nombre;
     private String descripcion;
     private String url;
-    private List<ProductoDTO> productos;
+    private List<ProductoView> productos;
 }

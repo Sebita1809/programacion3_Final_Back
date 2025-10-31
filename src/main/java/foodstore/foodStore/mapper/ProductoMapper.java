@@ -4,15 +4,22 @@ import foodstore.foodStore.entity.Producto;
 import foodstore.foodStore.entity.dto.Categoria.CategoriaView;
 import foodstore.foodStore.entity.dto.Producto.ProductoCreateDTO;
 import foodstore.foodStore.entity.dto.Producto.ProductoDTO;
+import foodstore.foodStore.repository.CategoriaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductoMapper {
 
+    @Autowired
+    CategoriaRepository categoriaRepository;
+
     public Producto toEntity(ProductoCreateDTO p){
         Producto producto = new Producto();
         producto.setNombre(p.nombre());
         producto.setPrecio(p.precio());
+        producto.setStock(p.stock());
+        producto.setUrl(p.url());
 
         return producto;
     }
@@ -30,6 +37,7 @@ public class ProductoMapper {
                 p.getNombre(),
                 p.getPrecio(),
                 p.getStock(),
+                p.getUrl(),
                 categoriaView
         );
     }
