@@ -52,7 +52,7 @@ public class CategoriaServiceImp implements CategoriaService {
 
     @Override
     public List<CategoriaDTO> findAll(){
-        List<CategoriaDTO> categorias = categoriaRespository.findAll().
+        List<CategoriaDTO> categorias = categoriaRespository.findAllByOrderByIdAsc().
                 stream().
                 map(categoriaMapper::toDto).
                 collect(Collectors.toList());
