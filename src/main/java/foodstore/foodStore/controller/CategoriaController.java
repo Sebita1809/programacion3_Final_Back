@@ -42,7 +42,7 @@ public class CategoriaController {
         if (categoriaService.delete(id)){
             return ResponseEntity.ok("Categoria borrada con exito");
         }
-        return ResponseEntity.badRequest().body("Error: esta categoria se encuentra en productos");
+        return ResponseEntity.badRequest().body("Error: esta categoria contiene productos");
     }
 
     @PatchMapping("/{id}/edit")
