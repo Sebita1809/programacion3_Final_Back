@@ -2,10 +2,7 @@ package foodstore.foodStore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -26,5 +23,6 @@ public class Producto {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = true)
+    @ToString.Exclude
     private Categoria categoria;
 }

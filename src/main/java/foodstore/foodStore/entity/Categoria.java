@@ -24,5 +24,6 @@ public class Categoria {
     private String Url;
 
     @OneToMany(mappedBy = "categoria")
+    @ToString.Exclude
     private List<Producto> productos;
 }

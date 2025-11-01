@@ -68,8 +68,10 @@ public class ProductoServiceImp implements ProductoService {
 
     @Override
     public ProductoDTO edit(Long id, ProductoEdit p){
+
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no existente"));
+        System.out.println(producto);
         producto.setNombre(p.nombre());
         producto.setPrecio(p.precio());
         producto.setStock(p.stock());

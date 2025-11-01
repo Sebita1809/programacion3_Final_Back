@@ -45,9 +45,7 @@ public class ProductoController {
 
     @PatchMapping("/{id}/edit")
     public ResponseEntity<?> edit(@PathVariable Long id, @RequestBody ProductoEdit p){
-        if (!productoService.productExist(p.nombre())){
-            return ResponseEntity.badRequest().body("Producto no existente");
-        }
+
         if (!categoriaService.categoryExist(p.categoria())){
             return ResponseEntity.badRequest().body("Categoria no existente");
         }
