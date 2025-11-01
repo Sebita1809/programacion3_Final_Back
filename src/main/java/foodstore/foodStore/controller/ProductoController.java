@@ -32,6 +32,7 @@ public class ProductoController {
     @PostMapping("/create")
     public ResponseEntity<?> save(@RequestBody ProductoCreateDTO p){
 
+        System.out.println(p);
         if (productoService.productExist(p.nombre())){
             return ResponseEntity.badRequest().body("Este producto ya existente");
         }
@@ -46,9 +47,6 @@ public class ProductoController {
     @PatchMapping("/{id}/edit")
     public ResponseEntity<?> edit(@PathVariable Long id, @RequestBody ProductoEdit p){
 
-        if (!categoriaService.categoryExist(p.categoria())){
-            return ResponseEntity.badRequest().body("Categoria no existente");
-        }
         productoService.edit(id, p);
         return ResponseEntity.status(201).body("Producto editado con exito");
     }

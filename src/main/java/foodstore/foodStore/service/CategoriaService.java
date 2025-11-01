@@ -14,6 +14,6 @@ public interface CategoriaService {
     CategoriaDTO save (CategoriaCreate c);
     void edit(Long id, CategoriaEditDTO c);
     List<CategoriaDTO> findAll();
-    void delete(Long id);
+    boolean delete(Long id);
     boolean categoryExist (String name);
 }

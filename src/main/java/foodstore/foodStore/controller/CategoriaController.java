@@ -39,12 +39,10 @@ public class CategoriaController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<?> delete(@PathVariable Long id){
 
-        try{
-            categoriaService.delete(id);
+        if (categoriaService.delete(id)){
             return ResponseEntity.ok("Categoria borrada con exito");
-        } catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
         }
+        return ResponseEntity.badRequest().body("Error: esta categoria se encuentra en productos");
     }
 
     @PatchMapping("/{id}/edit")

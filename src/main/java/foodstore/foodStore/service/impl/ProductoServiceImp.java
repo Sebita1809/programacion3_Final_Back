@@ -77,14 +77,8 @@ public class ProductoServiceImp implements ProductoService {
         producto.setStock(p.stock());
         producto.setUrl(p.url());
         producto.setDescripcion(p.descripcion());
-        Categoria categoriaNueva = categoriaRepository.findByNombre(p.categoria());
-        Categoria categoriaVieja = producto.getCategoria();
-        if (categoriaVieja != null && !categoriaVieja.getId().equals(categoriaNueva.getId())){
-            categoriaVieja.getProductos().remove(producto);
-        }
-        producto.setCategoria(categoriaNueva);
-        if (!categoriaNueva.getProductos().contains(producto)){
-            categoriaNueva.getProductos().add(producto);
+        if (!producto.equals(p.categoria())){
+            producto.setCategoria(categoriaRepository.findByNombre(p.categoria()));
         }
         productoRepository.save(producto);
         return productoMapper.toDto(producto);

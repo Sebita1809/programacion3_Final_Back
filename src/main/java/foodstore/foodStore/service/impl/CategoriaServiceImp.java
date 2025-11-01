@@ -60,9 +60,19 @@ public class CategoriaServiceImp implements CategoriaService {
     }
 
     @Override
-    public void delete(Long id){
+    public boolean delete(Long id){
 
-        categoriaRespository.deleteById(id);
+        for (Categoria categoria : categoriaRespository.findAll()){
+            if (categoria.getId().equals(id)){
+                if (categoria.getProductos().isEmpty()){
+
+                    categoriaRespository.deleteById(id);
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 
     @Override

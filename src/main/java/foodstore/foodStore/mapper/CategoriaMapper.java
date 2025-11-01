@@ -20,11 +20,12 @@ public class CategoriaMapper {
     ProductoMapper productoMapper;
 
     public Categoria toEntity(CategoriaCreate c){
+        List<Producto> productos = new ArrayList<>();
         Categoria categoria = new Categoria();
         categoria.setNombre(c.nombre());
         categoria.setDescripcion(c.descripcion());
         categoria.setUrl(c.url());
-
+        categoria.setProductos(productos);
         return categoria;
     }
 
