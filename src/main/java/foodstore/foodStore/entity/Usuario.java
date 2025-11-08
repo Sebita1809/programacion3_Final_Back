@@ -3,13 +3,14 @@ package foodstore.foodStore.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@Builder
 @Table(name = "usuarios")
 public class Usuario {
 
@@ -22,8 +23,14 @@ public class Usuario {
     private String email;
     private int celular;
     private String contrasena;
-
     private Rol rol;
 
-
+    @OneToMany
+    @JoinTable(
+            name = "usuario_pedido",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "pedido_id")
+    )
+    @Builder.Default
+    private List<Pedido> pedidos = new ArrayList<>();
 }

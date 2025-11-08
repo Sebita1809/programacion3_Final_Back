@@ -92,4 +92,11 @@ public class ProductoServiceImp implements ProductoService {
         producto.getCategoria().getProductos().remove(producto);
         productoRepository.deleteById(id);
     }
+
+    @Override
+    public boolean checkStock(Long idProduct, int cantidad){
+        Producto producto = productoRepository.findById(idProduct)
+                .orElseThrow(() -> new NullPointerException("Producto no encontrado"));
+        return producto.getStock() >= cantidad;
+    }
 }
