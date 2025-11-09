@@ -33,6 +33,15 @@ public class PedidoMapper {
         pedido.setTelefono(p.telefono());
         pedido.setMetodoPago(p.metodoPago());
         pedido.setEstado(Estado.PENDIENTE);
+        pedido.setIdUsuario(p.idUsuario());
+        
+        // Recuperar y guardar el nombre del usuario
+        Usuario usuario = usuarioRepository.findById(p.idUsuario()).orElse(null);
+        if (usuario != null) {
+            pedido.setNombreUsuario(usuario.getNombre());
+            pedido.setApellidoUsuario(usuario.getApellido());
+        }
+        
         pedido.setDetalles(p.detalles().stream().map(detallePedidoMapper::toEntity).toList());
         for (DetallePedido detallePedido : pedido.getDetalles()){
             total += detallePedido.getSubtotal();
@@ -42,6 +51,16 @@ public class PedidoMapper {
     }
 
     public PedidoDTO toDto(Pedido p){
+        String nombreCompleto = "Usuario desconocido";
+        
+        // Usar los datos guardados en el pedido
+        if (p.getNombreUsuario() != null) {
+            nombreCompleto = p.getNombreUsuario();
+            if (p.getApellidoUsuario() != null && !p.getApellidoUsuario().isEmpty()) {
+                nombreCompleto += " " + p.getApellidoUsuario();
+            }
+        }
+        
         return new PedidoDTO(
                 p.getId(),
                 p.getFecha(),
@@ -50,6 +69,8 @@ public class PedidoMapper {
                 p.getTelefono(),
                 p.getMetodoPago(),
                 p.getTotal(),
+                p.getIdUsuario(),
+                nombreCompleto.trim(),
                 p.getDetalles().stream().map(detallePedidoMapper::toDto).toList()
         );
     }

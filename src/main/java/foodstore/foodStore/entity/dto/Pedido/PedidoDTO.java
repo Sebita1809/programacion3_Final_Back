@@ -24,5 +24,7 @@ public class PedidoDTO {
     private Long telefono;
     private String metodoPago;
     private double total;
+    private Long idUsuario;
+    private String nombreUsuario;
     private List<DetallePedidoDTO> detalles = new ArrayList<>();
 }

@@ -26,6 +26,9 @@ public class Pedido {
     private Long telefono;
     private String metodoPago;
     private double total;
+    private Long idUsuario;
+    private String nombreUsuario;
+    private String apellidoUsuario;
 
     @OneToMany
     @JoinColumn(name = "detalle_id")
