@@ -2,6 +2,7 @@ package foodstore.foodStore.controller;
 
 import foodstore.foodStore.entity.Pedido;
 import foodstore.foodStore.entity.dto.Pedido.PedidoCreate;
+import foodstore.foodStore.entity.dto.Pedido.PedidoDTO;
 import foodstore.foodStore.entity.dto.Pedido.PedidoEditStatus;
 import foodstore.foodStore.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,12 @@ public class PedidoController {
     public ResponseEntity<?> save(@RequestBody PedidoCreate p){
         try {
             return ResponseEntity.ok(pedidoService.save(p));
-        } catch (Exception e){
+        } catch (NullPointerException e){
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Error al crear el pedido: " + e.getMessage());
         }
     }
 

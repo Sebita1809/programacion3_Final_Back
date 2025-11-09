@@ -23,7 +23,7 @@ public class Pedido {
     private LocalDate fecha;
     private Estado estado;
     private String direccion;
-    private Integer telefono;
+    private Long telefono;
     private String metodoPago;
     private double total;
 

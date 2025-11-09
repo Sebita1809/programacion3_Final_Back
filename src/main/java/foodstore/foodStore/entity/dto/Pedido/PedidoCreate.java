@@ -7,7 +7,7 @@ import java.util.List;
 
 public record PedidoCreate(
         Long idUsuario,
-        Integer telefono,
+        Long telefono,
         String direccion,
         String metodoPago,
         List<DetallePedidoCreate> detalles

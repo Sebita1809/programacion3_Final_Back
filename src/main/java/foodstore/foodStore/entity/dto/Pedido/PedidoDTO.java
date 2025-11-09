@@ -21,7 +21,7 @@ public class PedidoDTO {
     private LocalDate fecha;
     private Estado estado;
     private String direccion;
-    private Integer telefono;
+    private Long telefono;
     private String metodoPago;
     private double total;
     private List<DetallePedidoDTO> detalles = new ArrayList<>();
