@@ -22,6 +22,7 @@ public class Categoria {
     private String nombre;
     private String descripcion;
     private String Url;
+    private boolean eliminado;
 
     @OneToMany(mappedBy = "categoria")
     @ToString.Exclude

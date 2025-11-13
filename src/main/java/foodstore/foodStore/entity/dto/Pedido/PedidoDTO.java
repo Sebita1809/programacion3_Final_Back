@@ -27,4 +27,5 @@ public class PedidoDTO {
     private Long idUsuario;
     private String nombreUsuario;
     private List<DetallePedidoDTO> detalles = new ArrayList<>();
+    private boolean eliminado;
 }

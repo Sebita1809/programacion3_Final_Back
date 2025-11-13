@@ -16,5 +16,4 @@ public interface ProductoService {
     void delete(Long id);
     List<ProductoDTO> findAll();
     boolean productExist(String name);
-    boolean checkStock(Long idProduct, int cantidad);
 }

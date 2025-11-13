@@ -30,6 +30,7 @@ public class UsuarioMapper {
         user.setContrasena(PasswordHash.hashPassword(userC.contrasena()));
         user.setRol(Rol.USUARIO);
         user.setPedidos(pedidos);
+        user.setEliminado(false);
 
         return user;
     }
@@ -46,7 +47,8 @@ public class UsuarioMapper {
                 user.getEmail(),
                 user.getCelular(),
                 user.getRol(),
-                pedidos
+                pedidos,
+                user.isEliminado()
         );
     }
 }

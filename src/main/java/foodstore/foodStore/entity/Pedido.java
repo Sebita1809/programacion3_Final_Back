@@ -29,6 +29,7 @@ public class Pedido {
     private Long idUsuario;
     private String nombreUsuario;
     private String apellidoUsuario;
+    private boolean eliminado;
 
     @OneToMany
     @JoinColumn(name = "detalle_id")

@@ -26,6 +26,7 @@ public class UsuarioDTO {
     private int celular;
     private Rol rol;
     private List<PedidoDTO> pedidos;
+    private boolean eliminado;
 
 
 }

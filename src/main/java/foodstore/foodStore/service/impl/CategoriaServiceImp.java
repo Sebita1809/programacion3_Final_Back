@@ -66,7 +66,8 @@ public class CategoriaServiceImp implements CategoriaService {
             if (categoria.getId().equals(id)){
                 if (categoria.getProductos().isEmpty()){
 
-                    categoriaRespository.deleteById(id);
+                    categoria.setEliminado(true);
+                    categoriaRespository.save(categoria);
                     return true;
                 }
             }

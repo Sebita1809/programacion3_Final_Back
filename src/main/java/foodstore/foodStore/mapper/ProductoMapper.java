@@ -21,6 +21,7 @@ public class ProductoMapper {
         producto.setStock(p.stock());
         producto.setUrl(p.url());
         producto.setDescripcion(p.descripcion());
+        producto.setEliminado(false);
 
         return producto;
     }
@@ -40,7 +41,8 @@ public class ProductoMapper {
                 p.getStock(),
                 p.getUrl(),
                 p.getDescripcion(),
-                categoriaView
+                categoriaView,
+                p.isEliminado()
         );
     }
 }

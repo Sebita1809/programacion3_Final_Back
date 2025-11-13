@@ -24,4 +24,5 @@ public class ProductoDTO {
     private String url;
     private String descripcion;
     private CategoriaView categoria;
+    private boolean eliminado;
 }

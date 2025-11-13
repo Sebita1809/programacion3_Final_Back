@@ -20,6 +20,7 @@ public class Producto {
     private int stock;
     private String url;
     private String descripcion;
+    private boolean eliminado;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = true)

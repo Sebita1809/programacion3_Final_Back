@@ -24,6 +24,7 @@ public class Usuario {
     private int celular;
     private String contrasena;
     private Rol rol;
+    private boolean eliminado;
 
     @OneToMany
     @JoinTable(

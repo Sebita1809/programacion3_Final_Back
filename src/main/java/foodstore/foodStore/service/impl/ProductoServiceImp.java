@@ -90,13 +90,8 @@ public class ProductoServiceImp implements ProductoService {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado"));
         producto.getCategoria().getProductos().remove(producto);
-        productoRepository.deleteById(id);
+        producto.setEliminado(true);
+        productoRepository.save(producto);
     }
 
-    @Override
-    public boolean checkStock(Long idProduct, int cantidad){
-        Producto producto = productoRepository.findById(idProduct)
-                .orElseThrow(() -> new NullPointerException("Producto no encontrado"));
-        return producto.getStock() >= cantidad;
-    }
 }

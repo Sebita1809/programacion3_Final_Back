@@ -26,6 +26,7 @@ public class CategoriaMapper {
         categoria.setDescripcion(c.descripcion());
         categoria.setUrl(c.url());
         categoria.setProductos(productos);
+        categoria.setEliminado(false);
         return categoria;
     }
 
@@ -40,7 +41,8 @@ public class CategoriaMapper {
                 c.getNombre(),
                 c.getDescripcion(),
                 c.getUrl(),
-                productos
+                productos,
+                c.isEliminado()
         );
     }
 

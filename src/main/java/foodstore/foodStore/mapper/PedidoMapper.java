@@ -47,6 +47,7 @@ public class PedidoMapper {
             total += detallePedido.getSubtotal();
         }
         pedido.setTotal(total);
+        pedido.setEliminado(false);
         return pedido;
     }
 
@@ -71,7 +72,8 @@ public class PedidoMapper {
                 p.getTotal(),
                 p.getIdUsuario(),
                 nombreCompleto.trim(),
-                p.getDetalles().stream().map(detallePedidoMapper::toDto).toList()
+                p.getDetalles().stream().map(detallePedidoMapper::toDto).toList(),
+                p.isEliminado()
         );
     }
 }
