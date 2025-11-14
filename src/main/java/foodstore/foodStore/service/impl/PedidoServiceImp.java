@@ -10,6 +10,7 @@ import foodstore.foodStore.service.PedidoService;
 import foodstore.foodStore.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -72,6 +73,7 @@ public class PedidoServiceImp implements PedidoService {
     public List<PedidoDTO> findAll() {
         List<PedidoDTO> pedidos = pedidoRepository.findAllByOrderByIdAsc()
                 .stream()
+                .filter(pedido -> !pedido.isEliminado())
                 .map(pedidoMapper::toDto)
                 .toList();
 
@@ -82,18 +84,20 @@ public class PedidoServiceImp implements PedidoService {
     public List<PedidoDTO> userOrders(Long id){
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NullPointerException("Usuario no encontrado"));
-        List<Pedido> pedidosDeUsuario = usuario.getPedidos();
-
-        List<PedidoDTO> pedidosDTO = pedidosDeUsuario.stream()
+        List<PedidoDTO> pedidosDTO = usuario.getPedidos()
+                .stream()
+                .filter(pedido -> !pedido.isEliminado())
                 .map(pedidoMapper::toDto)
                 .toList();
         return pedidosDTO;
     }
 
     @Override
+    @Transactional
     public void deleteOrder(Long id){
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new NullPointerException("Pedido no encontrado"));
+        productoService.reponerStock(pedido.getDetalles());
         pedido.setEliminado(true);
         pedidoRepository.save(pedido);
     }

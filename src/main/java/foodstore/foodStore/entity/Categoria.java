@@ -22,6 +22,8 @@ public class Categoria {
     private String nombre;
     private String descripcion;
     private String Url;
+    
+    @Column(columnDefinition = "boolean default false")
     private boolean eliminado;
 
     @OneToMany(mappedBy = "categoria")

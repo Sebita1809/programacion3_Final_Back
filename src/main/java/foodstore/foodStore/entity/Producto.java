@@ -20,6 +20,8 @@ public class Producto {
     private int stock;
     private String url;
     private String descripcion;
+    
+    @Column(columnDefinition = "boolean default false")
     private boolean eliminado;
 
     @ManyToOne

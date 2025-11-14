@@ -24,6 +24,8 @@ public class Usuario {
     private int celular;
     private String contrasena;
     private Rol rol;
+    
+    @Column(columnDefinition = "boolean default false")
     private boolean eliminado;
 
     @OneToMany

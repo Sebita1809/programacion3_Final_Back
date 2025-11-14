@@ -29,6 +29,8 @@ public class Pedido {
     private Long idUsuario;
     private String nombreUsuario;
     private String apellidoUsuario;
+    
+    @Column(columnDefinition = "boolean default false")
     private boolean eliminado;
 
     @OneToMany
