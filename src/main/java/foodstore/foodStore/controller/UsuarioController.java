@@ -44,9 +44,18 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body("Este correo ya se encuentra registrado");
         }
 
-        UsuarioDTO user = usuarioService.save(userC);
+        usuarioService.save(userC);
         return ResponseEntity.status(201).body("Usuario registrado correctamente");
+    }
 
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+        try {
+            usuarioService.deleteUser(id);
+            return ResponseEntity.ok("Usuario eliminado exitosamente");
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

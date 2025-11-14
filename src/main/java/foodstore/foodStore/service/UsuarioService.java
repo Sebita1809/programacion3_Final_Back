@@ -13,4 +13,5 @@ public interface UsuarioService {
     Optional<UsuarioDTO> login (String email, String password);
     List<UsuarioDTO> findAll();
     boolean usuarioExists(String email);
+    void deleteUser(Long id);
 }

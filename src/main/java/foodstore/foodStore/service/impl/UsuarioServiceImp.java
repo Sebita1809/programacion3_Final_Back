@@ -63,4 +63,12 @@ public class UsuarioServiceImp implements UsuarioService {
 
         return usuarios;
     }
+
+    @Override
+    public void deleteUser(Long id){
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("Usuario no encontrado"));
+        usuario.setEliminado(true);
+        usuarioRepository.save(usuario);
+    }
 }
