@@ -1,11 +1,12 @@
 package foodstore.foodStore.service.impl;
 
 import foodstore.foodStore.entity.Categoria;
+import foodstore.foodStore.entity.DetallePedido;
 import foodstore.foodStore.entity.Producto;
+import foodstore.foodStore.entity.dto.DetallePedido.DetallePedidoCreate;
 import foodstore.foodStore.entity.dto.Producto.ProductoCreateDTO;
 import foodstore.foodStore.entity.dto.Producto.ProductoDTO;
 import foodstore.foodStore.entity.dto.Producto.ProductoEdit;
-import foodstore.foodStore.mapper.CategoriaMapper;
 import foodstore.foodStore.mapper.ProductoMapper;
 import foodstore.foodStore.repository.CategoriaRepository;
 import foodstore.foodStore.repository.ProductoRepository;
@@ -15,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductoServiceImp implements ProductoService {
@@ -26,9 +25,6 @@ public class ProductoServiceImp implements ProductoService {
 
     @Autowired
     CategoriaRepository categoriaRepository;
-
-    @Autowired
-    CategoriaMapper categoriaMapper;
 
     @Autowired
     ProductoMapper productoMapper;
@@ -92,6 +88,29 @@ public class ProductoServiceImp implements ProductoService {
         producto.getCategoria().getProductos().remove(producto);
         producto.setEliminado(true);
         productoRepository.save(producto);
+    }
+
+    @Override
+    public void reponerStock(List<DetallePedido> pedido){
+        for (DetallePedido detalle : pedido) {
+            Producto producto = productoRepository.findById(detalle.getIdProducto())
+                    .orElseThrow(() -> new NullPointerException());
+            int stock = producto.getStock();
+            producto.setStock(stock + detalle.getCantidad());
+            productoRepository.save(producto);
+        }
+    }
+
+    @Override
+    public boolean checkStock(List<DetallePedidoCreate> detalles){
+        for (DetallePedidoCreate detalle : detalles){
+            Producto producto = productoRepository.findById(detalle.idProducto())
+                    .orElseThrow(() -> new NullPointerException("Produto no encontrado"));
+            if (detalle.cantidad() > producto.getStock()){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -1,14 +1,13 @@
 package foodstore.foodStore.service.impl;
 import foodstore.foodStore.entity.*;
-import foodstore.foodStore.entity.dto.DetallePedido.DetallePedidoCreate;
 import foodstore.foodStore.entity.dto.Pedido.PedidoCreate;
 import foodstore.foodStore.entity.dto.Pedido.PedidoDTO;
 import foodstore.foodStore.entity.dto.Pedido.PedidoEditStatus;
 import foodstore.foodStore.mapper.PedidoMapper;
 import foodstore.foodStore.repository.PedidoRepository;
-import foodstore.foodStore.repository.ProductoRepository;
 import foodstore.foodStore.repository.UsuarioRepository;
 import foodstore.foodStore.service.PedidoService;
+import foodstore.foodStore.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,25 +26,26 @@ public class PedidoServiceImp implements PedidoService {
     UsuarioRepository usuarioRepository;
 
     @Autowired
-    ProductoRepository productoRepository;
+    ProductoService productoService;
 
-    @Autowired
-    PedidoService pedidoService;
 
     @Override
     public PedidoDTO editStatus(PedidoEditStatus p) {
         List<String> estados = List.of("pendiente", "confirmado", "cancelado", "terminado");
         Pedido pedido = pedidoRepository.findById(p.id())
                 .orElseThrow(() -> new NullPointerException("Pedido no encontrado"));
-        if (estados.contains(p.estado().toLowerCase())){
-            if (p.estado().equalsIgnoreCase("cancelado")){
-                pedidoService.reponerStock(pedido.getDetalles());
+        if (!pedido.getEstado().equals(Estado.valueOf(p.estado().toUpperCase()))){
+            if (estados.contains(p.estado().toLowerCase())){
+                if (p.estado().equalsIgnoreCase("cancelado")){
+                    productoService.reponerStock(pedido.getDetalles());
+                    pedido.setEstado(Estado.valueOf(p.estado().toUpperCase()));
+                }
                 pedido.setEstado(Estado.valueOf(p.estado().toUpperCase()));
+            }else{
+                throw new IllegalArgumentException("Estado ingresado no valido");
             }
-            pedido.setEstado(Estado.valueOf(p.estado().toUpperCase()));
-        }else{
-            throw new IllegalArgumentException("Estado ingresado no valido");
         }
+
         pedidoRepository.save(pedido);
         return pedidoMapper.toDto(pedido);
     }
@@ -57,7 +57,7 @@ public class PedidoServiceImp implements PedidoService {
         if (!checkPayment(p.metodoPago())){
             throw new IllegalArgumentException("Metodo de pago no valido");
         }
-        if (!checkStock(p.detalles())) {
+        if (!productoService.checkStock(p.detalles())) {
             throw new IllegalArgumentException("Stock no disponible para alguno de los productos solicitados");
 
         }
@@ -105,24 +105,7 @@ public class PedidoServiceImp implements PedidoService {
         return metodos.contains(cp.toLowerCase());
     }
 
-    @Override
-    public boolean checkStock(List<DetallePedidoCreate> detalles){
-        for (DetallePedidoCreate detalle : detalles){
-            Producto producto = productoRepository.findById(detalle.idProducto())
-                    .orElseThrow(() -> new NullPointerException("Produto no encontrado"));
-            if (detalle.cantidad() > producto.getStock()){
-                return false;
-            }
-        }
-        return true;
-    }
 
-    @Override
-    public void reponerStock(List<DetallePedido> pedido){
-        for (DetallePedido detalle : pedido) {
-            Producto producto = productoRepository.findById(detalle.getIdProducto())
-                    .orElseThrow(() -> new NullPointerException());
-            producto.setStock(detalle.getCantidad());
-        }
-    }
+
+
 }
